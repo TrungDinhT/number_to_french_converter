@@ -88,3 +88,37 @@ Number can be hard to write in French.
 >  - 200000 = 2 * 100 * 1000 = "deux-cent-milles", without S at "cents", but with S at "milles"
 >  - 180000 = (100 + 4 * 20) * 1000 = "cent-quatre-vingt-milles", without S at "vingt", but with S at "milles"
 >
+
+## Install
+
+Poetry is used for package management in this project. Therefore, please make sure that [poetry is installed](https://python-poetry.org/docs/#installation) before tested this.
+
+In order to run the package application, please firstly install the project:
+
+```bash
+> poetry install
+```
+
+Here is the documentation of application
+
+```
+Usage: number_to_french_converter [OPTIONS] INPUT                                                                                                                         
+                                                                                                                                                                           
+╭─ Arguments ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ *    input      TEXT  Path to file containing numbers to be converted [default: None] [required]                                                                        │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --output                    TEXT  Path to file to save outputs [default: None]                                                                                          │
+│ --install-completion              Install completion for the current shell.                                                                                             │
+│ --show-completion                 Show completion for the current shell, to copy it or customize the installation.                                                      │
+│ --help                            Show this message and exit.                                                                                                           │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+Then, run the application, for example with the dataset given in the subject:
+
+```bash
+> poetry run number_to_french_converter data/dataset.json
+```
+
+An output file named `out.json` is saved in the current path at top level.
