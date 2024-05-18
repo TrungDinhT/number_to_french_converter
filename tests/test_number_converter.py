@@ -66,3 +66,12 @@ def test_convert_number_in_hundreds():
     assert convert_number(252) == "deux-cent-cinquante-deux"
     assert convert_number(382) == "trois-cent-quatre-vingt-deux"
     assert convert_number(880) == "huit-cent-quatre-vingts"
+
+
+def test_convert_number_in_thousands():
+    assert convert_number(1000) == "mille"
+    assert convert_number(3000) == "trois-milles"
+    assert convert_number(2045) == "deux-mille-quarante-cinq"
+    assert convert_number(200000) == "deux-cent-milles"
+    assert convert_number(200010) == "deux-cent-mille-dix"
+    assert convert_number(180000) == "cent-quatre-vingt-milles"

@@ -29,3 +29,8 @@ DECADES = {
     60: "soixante",
     80: "quatre-vingt"
 }
+
+MILLIONS = {
+    1: "mille"
+    # We can add more like million, billion, etc.
+}

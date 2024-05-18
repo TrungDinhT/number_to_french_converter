@@ -60,4 +60,24 @@ class LessThanAThousand:
 
 @dataclass
 class MoreThanAThousand:
-    pass
+    val: int
+
+    _list_hundreds: list[int] = field(default_factory=lambda: [], init=False)
+
+    def __post_init__(self):
+        value = self.val
+        while value > 0:
+            self._list_hundreds.append(value % 1000)
+            value //= 1000
+
+    def to_text(self) -> str:
+        list_hundreds_str = []
+        for rank, elem in enumerate(self._list_hundreds):
+            if elem == 0:
+                continue
+            else:
+                if rank > 0:
+                    list_hundreds_str.append(MILLIONS[rank])
+                if elem > 1:
+                    list_hundreds_str.append(LessThanAThousand(elem).to_text())
+        return "-".join(reversed(list_hundreds_str))
