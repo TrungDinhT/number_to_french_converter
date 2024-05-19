@@ -1,83 +1,66 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Protocol, List, Dict
 
-from .constants import DECADES, UNITS, MILLIONS
+from .constants import UNITS, MILLIONS
 
 
-@dataclass
-class LessThanAHundred:
-    val: int
-
-    _unit: int = field(init=False)
-    _decade: Optional[int] = field(default=None, init=False)
-
-    def __post_init__(self):
-        if self.val < 20:
-            self._unit = self.val
-        else:
-            self._unit = self.val % 10
-            self._decade = self.val - self._unit
-            if self._decade == 70 or self._decade == 90:
-                self._decade -= 10
-                self._unit += 10
-
-    def to_text(self) -> str:
-        if self._decade is None:
-            return UNITS[self._unit]
-        else:
-            if self._unit == 0:
-                return DECADES[self._decade]
-            connecter = (
-                "-et-"
-                if (self._unit == 1 or self._unit == 11) and self._decade != 80
-                else "-"
-            )
-            return f"{DECADES[self._decade]}{connecter}{UNITS[self._unit]}"
+class NumberRepresentation(Protocol):
+    def to_text(self) -> str: ...
 
 
 @dataclass
 class LessThanAThousand:
+    decades_str_dict: Dict[int, str]
+
     val: int
 
-    _unit: int = field(init=False)
-    _hundred: Optional[int] = field(default=None, init=False)
+    unit: int
+    decades: List[int]
+    hundred: Optional[int] = field(default=None)
 
-    def __post_init__(self):
-        self._unit = self.val % 100
-        if self._unit < self.val:
-            self._hundred = self.val // 100
+    @staticmethod
+    def decades_and_unit_connecter(decades: List[int], unit: int) -> str:
+        decade = sum(decades)
+        return "-et-" if unit in [1, 11] and decade != 80 else "-"
 
     def to_text(self) -> str:
-        unit = LessThanAHundred(self._unit)
-        if self._hundred is None:
-            return unit.to_text()
+        hundred_and_decades = []
+
+        if self.hundred is not None:
+            if self.hundred > 1:
+                hundred_and_decades.append(UNITS[self.hundred])
+            hundred_and_decades.append("cent")
+        hundred_and_decades.extend(map(self.decades_str_dict.get, self.decades))
+
+        if len(hundred_and_decades) == 0:
+            return UNITS[self.unit]
         else:
-            hundred_str = (
-                "cent" if self._hundred == 1 else f"{UNITS[self._hundred]}-cent"
-            )
-            return hundred_str if unit.val == 0 else f"{hundred_str}-{unit.to_text()}"
+            hundred_and_decades_str = "-".join(hundred_and_decades)
+            if self.unit == 0:
+                return hundred_and_decades_str
+            else:
+                return (
+                    hundred_and_decades_str
+                    + self.decades_and_unit_connecter(
+                        decades=self.decades, unit=self.unit
+                    )
+                    + UNITS[self.unit]
+                )
 
 
 @dataclass
 class MoreThanAThousand:
     val: int
-
-    _list_hundreds: list[int] = field(default_factory=lambda: [], init=False)
-
-    def __post_init__(self):
-        value = self.val
-        while value > 0:
-            self._list_hundreds.append(value % 1000)
-            value //= 1000
+    list_hundreds: list[LessThanAThousand]
 
     def to_text(self) -> str:
         list_hundreds_str = []
-        for rank, elem in enumerate(self._list_hundreds):
+        for rank, elem in enumerate(self.list_hundreds):
             if elem == 0:
                 continue
             else:
                 if rank > 0:
                     list_hundreds_str.append(MILLIONS[rank])
-                if elem > 1:
-                    list_hundreds_str.append(LessThanAThousand(elem).to_text())
+                if elem.val > 1:
+                    list_hundreds_str.append(elem.to_text())
         return "-".join(reversed(list_hundreds_str))

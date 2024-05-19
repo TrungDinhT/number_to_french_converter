@@ -1,3 +1,6 @@
+from enum import StrEnum
+
+
 UNITS = {
     0: "zéro",
     1: "un",
@@ -16,21 +19,23 @@ UNITS = {
     14: "quatorze",
     15: "quinze",
     16: "seize",
-    17: "dix-sept",
-    18: "dix-huit",
-    19: "dix-neuf",
-}
-
-DECADES = {
-    20: "vingt",
-    30: "trente",
-    40: "quarante",
-    50: "cinquante",
-    60: "soixante",
-    80: "quatre-vingt"
 }
 
 MILLIONS = {
     1: "mille"
     # We can add more like million, billion, etc.
 }
+
+FRENCH_DECADES_DICT = {
+    10: "dix",
+    20: "vingt",
+    30: "trente",
+    40: "quarante",
+    50: "cinquante",
+    60: "soixante",
+    80: "quatre-vingt",
+}
+
+class FrenchVariant(StrEnum):
+    French = "fr"
+    Swiss = "ch"
