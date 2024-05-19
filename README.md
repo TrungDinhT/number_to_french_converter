@@ -102,17 +102,18 @@ In order to run the package application, please firstly install the project:
 Here is the documentation of application
 
 ```
-Usage: number_to_french_converter [OPTIONS] INPUT                                                                                                                         
-                                                                                                                                                                           
-╭─ Arguments ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ *    input      TEXT  Path to file containing numbers to be converted [default: None] [required]                                                                        │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Options ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ --output                    TEXT  Path to file to save outputs [default: None]                                                                                          │
-│ --install-completion              Install completion for the current shell.                                                                                             │
-│ --show-completion                 Show completion for the current shell, to copy it or customize the installation.                                                      │
-│ --help                            Show this message and exit.                                                                                                           │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Usage: number_to_french_converter [OPTIONS] INPUT                                                                                                                            
+                                                                                                                                                                              
+╭─ Arguments ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ *    input      TEXT  Path to file containing numbers to be converted [default: None] [required]                                                                           │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --output                    TEXT     Path to file to save outputs [default: None]                                                                                          │
+│ --variant                   [fr|ch]  Variant of french to use [default: fr]                                                                                                │
+│ --install-completion                 Install completion for the current shell.                                                                                             │
+│ --show-completion                    Show completion for the current shell, to copy it or customize the installation.                                                      │
+│ --help                               Show this message and exit.                                                                                                           │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
 Then, run the application, for example with the dataset given in the subject:
