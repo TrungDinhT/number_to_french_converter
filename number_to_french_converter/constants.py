@@ -36,6 +36,18 @@ FRENCH_DECADES_DICT = {
     80: "quatre-vingt",
 }
 
+SWISS_FRENCH_DECADES_DICT = {
+    10: "dix",
+    20: "vingt",
+    30: "trente",
+    40: "quarante",
+    50: "cinquante",
+    60: "soixante",
+    70: "septante",
+    80: "huitante",
+    90: "nonante"
+}
+
 class FrenchVariant(StrEnum):
     French = "fr"
     Swiss = "ch"

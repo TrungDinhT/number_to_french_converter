@@ -37,6 +37,16 @@ class FrenchDecadesAndUnitSplitter(DecadeParser):
         return decades, unit
 
 
+class SwissFrenchDecadesAndUnitSplitter(DecadeParser):
+    @staticmethod
+    def split_decades_and_unit(val: int) -> Tuple[List[int], int]:
+        decade, unit = (val // 10) * 10, val % 10
+        if decade > 0:
+            return [decade], unit
+        else:
+            return [], val
+
+
 class SmallNumberParser(NumberParser):
     """Parser for numbers from 0 - 999"""
 
